@@ -15,3 +15,127 @@ Facciamo attenzione all’organizzazione del codice, suddividendolo in appositi 
 creando un file dedicato ai dati (tipo le array di oggetti) che potremmo chiamare db.php
 mettendo ciascuna classe nel proprio file e magari raggruppare tutte le classi in una cartella dedicata che possiamo chiamare Models
 organizzando il layout dividendo la struttura ed i contenuti in file e parziali dedicati
+
+
+<?php
+
+// creazione classe movie
+class Movie
+{
+    public $title;
+    public $director;
+    public $duration;
+    private $year_of_release;
+    private $genreArray = array();
+
+    function __construct(string $_title, int $_duration, string $_director = '')
+    {
+        $this->title = $_title;
+        $this->director = $_director;
+        $this->duration = $_duration;
+    }
+
+    public function setYear($year_of_release)
+    {
+        if (is_string($year_of_release)) {
+            echo 'Errore, inserisci un anno valido';
+        } else {
+            $this->year_of_release = $year_of_release;
+        }
+    }
+    public function getYear()
+    {
+        return $this->year_of_release;
+    }
+
+    // funzioni per aggiungere più di un genere
+
+    public function addGenre($genre)
+    {
+        $this->genreArray[] = $genre;
+    }
+
+    public function getGenres()
+    {
+        return $this->genreArray;
+    }
+}
+
+// istanza di due oggetti con classe Movie
+$movie1 = new Movie('Star Wars: Episode IV');
+$movie1->title = 'Star Wars: Episode IV';
+$movie1->director = 'George Lucas';
+$movie1->duration = 121;
+$movie1->genre = addGnere('Fantascienza');
+$movie1->genre = addGnere('Avventura');
+$movie1->genre = addGnere('Azione');
+$movie1->setYear(1977);
+$movie1->getYear();
+var_dump($movie1);
+
+echo '<br>';
+echo '<br>';
+
+$movie2 = new Movie('Avengers: Endgame');
+$movie2->title = 'Avengers: Endgame';
+$movie2->director = 'Russo brothers';
+$movie2->duration = 181;
+$movie2->genre = addGenre('Azione');
+$movie2->genre = addGnere('Fantascienza');
+$movie2->genre = addGnere('Avventura');
+$movie2->setYear(2019);
+$movie2->getYear();
+var_dump($movie2);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP OOP 1</title>
+</head>
+
+<body>
+
+    <h1>film</h1>
+
+    <div>
+        <h2>
+            Titolo:
+            <?php echo $movie1->title ?>
+        </h2>
+        <h3>
+            Regista:
+            <?php echo $movie1->director ?>
+        </h3>
+        <h3>
+            Durata: <?php echo $movie1->duration ?> min
+        </h3>
+        <h3>
+            Anno di uscita: <?php echo $movie1->getYear() ?>
+        </h3>
+        <h3>
+            Genere: <?php
+            for ($i=0; $i < count($movie1->getGenres()); $i++) { 
+                echo $movie1->getGenres()[$i] . ' ';
+            } ?>
+        </h3>
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
